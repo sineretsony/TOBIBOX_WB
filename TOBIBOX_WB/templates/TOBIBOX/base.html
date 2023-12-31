@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ua">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <link href="{% static 'TOBIBOX/style/style.css' %}" rel="stylesheet">
+    <link rel="icon" type="image/svg" href="{% static 'TOBIBOX/svg/favicon.svg' %}">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{% static 'TOBIBOX/js/script.js' %}"></script>
+    <title>{% block title %}Page Title{% endblock %}</title>
+
+</head>
+
+<body class="p-0 m-0 border-0 bd-example m-0 border-0">
+    <header>
+        <div class="container_header">
+            <div>
+                <a href="{% url 'index' %}"><img id="logo" alt="TOBIBOX" src="{% static 'TOBIBOX/svg/TOBIBOX_logo.svg' %}"></a>
+            </div>
+            <nav class="main-nav">
+                <a href="{% url 'index' %}">Головна</a>
+                <a href="{% url 'constructor' %}">Конструктор</a>
+                <a href="{% url 'about' %}">Про нас</a>
+                <a href="{% url 'contacts' %}">Контакти</a>
+            </nav>
+            <div>
+                <a href="#"><img class="dop_menu" src="{% static 'TOBIBOX/svg/TOBIBOX_search.svg' %}"></a>
+                {% if user.is_authenticated %}
+                <a href="{% url 'profile' %}"><img class="dop_menu" src="{% static 'TOBIBOX/svg/TOBIBOX_profile.svg' %}"></a>
+                {% else %}
+                <a href="{% url 'login' %}"><img class="dop_menu" src="{% static 'TOBIBOX/svg/TOBIBOX_profile.svg' %}"></a>
+                {% endif %}
+            </div>
+
+        </div>
+    </header>
+
+    {% block content %}
+    {% endblock %}
+    <div id="scrollToTopBtn">
+        <img src="{% static 'TOBIBOX/svg/scroll_top.svg' %}" alt="scroll top">
+    </div>
+
+
+    <footer id="footer">
+        <div class="container_footer_body">
+            <div class="container_footer">
+                <a href="{% url 'index' %}"><img id="logo_footer" alt="TOBIBOX_logo" src="{% static 'TOBIBOX/svg/TOBIBOX_logo.svg' %}"></a>
+                <p>&copy; TOBIBOX 2023</p>
+            </div>
+            <div class="container_footer_soc">
+                <p>tobibox@gmail.com</p>
+                <a href="base.html"><img class="soc_seti" alt="TOBIBOX_logo" src="{% static 'TOBIBOX/svg/TOBIBOX_telegram.svg' %}"></a>
+                <a href="base.html"><img class="soc_seti" alt="TOBIBOX_logo" src="{% static 'TOBIBOX/svg/TOBIBOX_instagram.svg' %}"></a>
+                <a href="base.html"><img class="soc_seti" alt="TOBIBOX_logo" src="{% static 'TOBIBOX/svg/TOBIBOX_facebook.svg' %}"></a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

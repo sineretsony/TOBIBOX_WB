@@ -1,0 +1,30 @@
+{% extends 'TOBIBOX/base.html' %}
+{% load static %}
+{% block title %}{{ user.username }}{% endblock %}
+ 
+{% block content %}
+<div id="contacts_info">
+  
+  <div id="form_login">
+     <div class="mb-3">
+      <input type="text" name="username" class="form-control_g" value="{{ user.username }}" readonly>
+    </div>
+    <div class="mb-3">
+      <input type="text" name="last_name" class="form-control_g" value="{{ user.last_name }}" readonly>
+    </div>
+    <div class="mb-3">
+      <input type="text" name="first_name" class="form-control_g" value="{{ user.first_name }}" readonly>
+    </div>
+    <div class="mb-3">
+      <input type="email" name="email" class="form-control_g" value="{{ user.email }}" readonly>
+    </div>
+    <div>
+        <a href="{% url 'logout' %}" class="btn btn-primary black-button">Вийти</a>
+    </div>
+</div>
+</div>
+{% endblock %}
+
+
+
+

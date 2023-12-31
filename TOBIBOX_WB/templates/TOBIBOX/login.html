@@ -1,0 +1,14 @@
+{% extends 'TOBIBOX/base.html' %}
+{% load static %}
+{% block title %}Контакти{% endblock %}
+ 
+{% block content %}
+{% for i in info %}
+<div id="contacts_info">
+    <h1>{{ i.contacts_title }}</h1>
+    {% if i.contacts_info_text %}
+        <p>{{ i.contacts_info_text|linebreaks|safe }}</p>
+    {% endif %}
+</div>
+{% endfor %}
+{% endblock %}

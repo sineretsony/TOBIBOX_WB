@@ -1,0 +1,16 @@
+{% extends 'TOBIBOX/base.html' %}
+{% load static %}
+{% block title %}Про нас{% endblock %}
+ 
+{% block content %}
+{% for i in info %}
+<div id="about_info">
+    <h1>{{ i.about_title }}</h1>
+    {% if i.about_info_text %}
+        <p>{{ i.about_info_text|linebreaks|safe }}</p>
+        <img src="{{ i.post_img.url }}" style="width: 15%; float: right ; padding: 0px 0 150px 0;">
+    {% endif %}
+    
+</div>
+{% endfor %}
+{% endblock %}

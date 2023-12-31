@@ -1,0 +1,31 @@
+{% extends 'TOBIBOX/base.html' %}
+{% load static %}
+{% block title %}Увійти{% endblock %}
+{% block content %}
+<div id="container_login">
+  {% if user_form.errors %}
+    <div class="error-message" role="alert">
+        {% for field, errors in user_form.errors.items %}
+            <strong>{{ field|title }}:</strong>
+            {% for error in errors %}
+                {{ error }}
+            {% endfor %}
+            <br>
+        {% endfor %}
+    </div>
+{% endif %}
+   <form id="form_login" method="post" action="{% url 'login' %}">
+     {% csrf_token %}
+      <div class="mb-3">
+        <input type="text" name="username" class="form-control_g" id="exampleInputUsername" placeholder="Username">
+      </div>
+      <div class="mb-3">
+        <input type="password" name="password" class="form-control_g" id="exampleInputPassword" placeholder="Password">
+      </div>
+      <div>
+          <a href="{% url 'register' %}" class="btn btn-primary black-button">Зареєструватись</a>
+          <button type="submit" class="btn btn-primary black-button">Увійти</button>
+      </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'TOBIBOX/base.html' %}
+{% load static %}
+{% block title %}Реєстрацiя{% endblock %}
+{% block content %}
+<div id="container_login">
+   {% if user_form.errors %}
+    <div class="error-message" role="alert">
+        {% for field, errors in user_form.errors.items %}
+            <strong>{{ field|title }}:</strong>
+            {% for error in errors %}
+                {{ error }}
+            {% endfor %}
+            <br>
+        {% endfor %}
+    </div>
+{% endif %}
+    <form id="form_login" method="POST" action="{% url 'register' %}">
+        {% csrf_token %}
+        <div class="mb-3">
+            <input type="text" name="{{ user_form.username.name }}" value="{{ user_form.username.value|default:'' }}" class="form-control_g" id="exampleInputUsername" placeholder="Username" required>
+        </div>
+        <div class="mb-3">
+            <input type="email" name="{{ user_form.email.name }}" value="{{ user_form.email.value|default:'' }}" class="form-control_g" id="exampleInputEmail" placeholder="Your email" required>
+        </div>
+        <div class="mb-3">
+            <input type="password" name="{{ user_form.password1.name }}" class="form-control_g" id="exampleInputPassword1" placeholder="Password" required pattern=".{8,}" title="Password must be at least 8 characters long">
+        </div>
+        <div class="mb-3">
+            <input type="password" name="{{ user_form.password2.name }}" class="form-control_g" id="exampleInputPassword2" placeholder="Confirm password" required pattern=".{8,}" title="Password must be at least 8 characters long">
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-primary black-button" value="login">Зареєструватись</button>
+            <a href="{% url 'login' %}" class="btn btn-primary black-button">Увійти</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
