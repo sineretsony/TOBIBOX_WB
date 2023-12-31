@@ -83,17 +83,19 @@ import json
 
 # тест 2
 
-# import svgwrite
-# import json
-#
+import svgwrite
+import json
+import pickle
+
+
 # # static data
 # unit_of_millimeters = 2.834646
 # safe_field = 2
 #
 # # input data
-# w = 210
-# h = 148
-# d = 5
+# w = 0
+# h = 0
+# d = 0
 #
 # # convert data in "unit_of_millimeters"
 # width = w * unit_of_millimeters
@@ -104,8 +106,7 @@ import json
 # # operational data
 # document_write = {'document_info': {'name': 'postcard',
 #                                     'cut_color': 'e30613',
-#                                     'creasing_color': '26fc00',
-#                                     'safe_field': 5},
+#                                     'creasing_color': '26fc00'},
 #
 #                   'document_size': {'width': w + safe_field + safe_field, 'height': (h * 2) + safe_field + safe_field + d},
 #
@@ -120,6 +121,11 @@ import json
 #
 #                   'crease_line': f"M{sf}, {height + sf} L{width + sf}, {height + sf}"
 #                                  f"M{sf}, {height + sf + depth} L{width + sf}, {height + sf + depth}"}
+
+#
+# with open('postcard.pgw', 'wb') as file:
+#     serial_data = pickle.dumps(document_write)
+#     file.write(serial_data)
 #
 #
 #
@@ -131,34 +137,65 @@ import json
 # document.saveas(f'{document_write["document_info"]["name"]}.svg')
 
 
-def create_vector_document(w, h, d, example):
+# def postcard(w, h, d, um, sff):
+#     """Width, height, depth, unit of measurement, safety margins"""
+#     # static data
+#     unit_of_millimeters = um
+#     safe_field = sff
+#
+#     # convert data in "unit_of_millimeters"
+#     width = w * unit_of_millimeters
+#     height = h * unit_of_millimeters
+#     depth = d * unit_of_millimeters
+#     sf = safe_field * unit_of_millimeters
+#
+#     # operational data
+#     document_write = {'document_info': {'name': 'postcard',
+#                                         'cut_color': 'e30613', # red
+#                                         'creasing_color': '26fc00'}, # green
+#
+#                       'document_size': {'width': w + safe_field + safe_field,
+#                                         'height': (h * 2) + safe_field + safe_field + d},
+#
+#                       'cut_line': f"M{sf},{sf} L{width + sf},{sf}"  # 1
+#                                   f"M{width + sf},{sf} L{width + sf},{width + sf}"  # 2
+#                                   f"M{width + sf}, {height + sf} L{width + sf}, {height + sf + depth}"  # 3
+#                                   f"M{width + sf}, {height + sf + depth} L{width + sf}, {height + height + sf + depth}"  # 4
+#                                   f"M{width + sf}, {height + height + sf + depth} L{sf},{height + height + sf + depth}"  # 5
+#                                   f"M{sf},{height + height + sf + depth} L{sf}, {height + sf + depth}"  # 6
+#                                   f"M{sf}, {height + sf + depth} L{sf}, {height + sf}"  # 7
+#                                   f"M{sf}, {height + sf} L{sf},{sf}",  # 8
+#
+#                       'crease_line': f"M{sf}, {height + sf} L{width + sf}, {height + sf}"
+#                                      f"M{sf}, {height + sf + depth} L{width + sf}, {height + sf + depth}"}
+#     return document_write
+
+
+def create_svg_document(w, h, d, example):
     import svgwrite
-    import json
+    import importlib.util
+
+    module_name = example
+    module_path = f'{module_name}.py'
+    spec = importlib.util.spec_from_file_location(module_name, module_path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
 
     # static data
-    unit_of_millimeters = 2.834646
+    un_milli = 2.834646
     safe_field = 2
 
-    # input data and convert in "unit_of_millimeters"
-    width = w * unit_of_millimeters
-    height = h * unit_of_millimeters
-    depth = d * unit_of_millimeters
-    sf = safe_field * unit_of_millimeters
-
-    with open(f'{example}.json', 'r') as json_file:
-        doc_write = json.load(json_file)
+    """Width, height, depth, unit of measurement, safety margins"""
+    doc_write = module.example(w, h, d, un_milli, safe_field)
 
     document = svgwrite.Drawing(
         f'{doc_write["document_info"]["name"]}.svg', profile='tiny',
         size=(f"{doc_write['document_size']['width']}mm",
               f"{doc_write['document_size']['height']}mm"))
 
-    cut_line = document.add(document.path(d=doc_write['cut_line'],
-                                          stroke=f'#{doc_write["document_info"]["cut_color"]}',
-                                          fill='none', stroke_miterlimit=10,
-                                          stroke_width=0.99))
-    crease_line = document.add(document.path(d=doc_write['crease_line'],
-                                             stroke=f'#{doc_write["document_info"]["creasing_color"]}',
-                                             fill='none', stroke_miterlimit=10,
-                                             stroke_width=0.99))
+    cut_line = document.add(document.path(d=doc_write['cut_line'], stroke=f'#{doc_write["document_info"]["cut_color"]}', fill='none', stroke_miterlimit=10, stroke_width=0.99))
+    crease_line = document.add(document.path(d=doc_write['crease_line'], stroke=f'#{doc_write["document_info"]["creasing_color"]}', fill='none', stroke_miterlimit=10, stroke_width=0.99))
     document.saveas(f'{doc_write["document_info"]["name"]}.svg')
+
+
+create_svg_document(100, 100, 5, 'box')
