@@ -22,6 +22,45 @@ class BoxCategory(models.Model):
         verbose_name_plural = 'Категорії'
 
 
+class DrawTemplates(models.Model):
+    draw_name = models.CharField(
+        max_length=30,
+        verbose_name='Назва креслення')
+    category = models.ForeignKey(
+        BoxCategory,
+        on_delete=models.CASCADE,
+        verbose_name='Категорія')
+    max_width = models.IntegerField(
+        max_length=5,
+        verbose_name='Максимальна ширина')
+    min_width = models.IntegerField(
+        max_length=5,
+        verbose_name='Мінімальна ширина')
+    max_height = models.IntegerField(
+        max_length=5,
+        verbose_name='Максимальна висота')
+    min_height = models.IntegerField(
+        max_length=5,
+        verbose_name='Мінімальна висота')
+    max_depth = models.IntegerField(
+        max_length=5,
+        verbose_name='Максимальна глубина')
+    min_depth = models.IntegerField(
+        max_length=5,
+        verbose_name='Мінімальна глубина')
+    templates_upload = models.FileField(
+        upload_to='drawing_templates/',
+        verbose_name='Завантаження креслення')
+    templates_prev = models.ImageField(
+        blank=True,
+        upload_to='drawing_templates/',
+        verbose_name='Прев\'ю')
+
+    class Meta:
+        verbose_name = 'Шаблон креслення'
+        verbose_name_plural = 'Шаблони креслення'
+
+
 class IndexPost(models.Model):
     post_title = models.CharField(
         max_length=30,

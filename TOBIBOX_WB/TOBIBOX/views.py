@@ -3,9 +3,10 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
+from . import creating_drawing as create_draw
 from .forms import RegistrationForm
-from .models import ContactsInfo, AboutInfo, IndexPost, UserProfile, \
-    CarouselImg
+from .models import ContactsInfo, AboutInfo, IndexPost, UserProfile, CarouselImg
+
 
 
 # Create your views here.
@@ -25,6 +26,7 @@ def contacts(request):
 def about(request):
     info = AboutInfo.objects.all()
     context = {'info': info}
+    create_draw.create_svg_document(100, 25, 10, 'postcard')
     return render(request, 'TOBIBOX/about.html', context=context)
 
 

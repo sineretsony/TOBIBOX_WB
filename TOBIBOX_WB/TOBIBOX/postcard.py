@@ -1,4 +1,4 @@
-def example(w, h, d, um, sff):
+def sample(w, h, d, um, sff):
     """Width, height, depth, unit of measurement, safety margins"""
     # static data
     unit_of_millimeters = um
@@ -19,7 +19,7 @@ def example(w, h, d, um, sff):
                                         'height': (h * 2) + safe_field + safe_field + d},
 
                       'cut_line': f"M{sf},{sf} L{width + sf},{sf}"  # 1
-                                  f"M{width + sf},{sf} L{width + sf},{width + sf}"  # 2
+                                  f"M{width + sf},{sf} L{width + sf},{height + sf}"  # 2
                                   f"M{width + sf}, {height + sf} L{width + sf}, {height + sf + depth}"  # 3
                                   f"M{width + sf}, {height + sf + depth} L{width + sf}, {height + height + sf + depth}"  # 4
                                   f"M{width + sf}, {height + height + sf + depth} L{sf},{height + height + sf + depth}"  # 5

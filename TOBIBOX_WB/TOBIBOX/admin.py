@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import ContactsInfo, AboutInfo, IndexPost, CarouselImg
+from .models import ContactsInfo, AboutInfo, IndexPost, CarouselImg, \
+    DrawTemplates
 
 
 # Register your models here.
@@ -26,3 +27,10 @@ class CarouselImgAdmin(admin.ModelAdmin):
     list_display = ('carousel_title', 'img_one', 'img_two', 'img_three')
     search_fields = ('carousel_title', 'img_one', 'img_two', 'img_three')
 
+
+@admin.register(DrawTemplates)
+class DrawTemplatesAdmin(admin.ModelAdmin):
+    list_display = ('draw_name', 'category', 'max_width', 'min_width',
+                    'max_height', 'min_height', 'max_depth', 'min_depth',
+                    'templates_upload', 'templates_prev')
+    search_fields = ('draw_name', 'category__name')
