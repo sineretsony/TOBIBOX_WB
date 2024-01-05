@@ -339,12 +339,12 @@ nav a {
     font-family: Candara, sans-serif;
     font-size: 20px;
     color: black;
-    max-width: 600px;
+    max-width: 800px;
     margin: 0 auto;
     padding: 15% 0;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
 
 
     #form_draw {
@@ -362,6 +362,7 @@ nav a {
         margin: 0 auto 10px;
         padding: 0 0 0 20px;
         display: block;
+        max-width: 235px;
     }
     
     .draw_info {
@@ -376,7 +377,7 @@ nav a {
 }
 
 .draw_prev {
-    max-width: 300px;
+    max-height: 396px;
     height: auto;
 }
 
@@ -404,9 +405,22 @@ input {
         font-family: Candara, sans-serif;
         font-size: 20px;
         color: black;
-        max-width: 600px;
+        max-width: 700px;
         margin: 0 auto;
         padding: 150px 0;
     }
 
 
+.form-control_d {
+    border: 1px solid #000;
+    border-radius: 0;
+    font-size: 15px;
+    font-family: Candara, sans-serif;
+    color: black;
+    width: 210px;
+    padding: 7px;
+}
+
+.form-control_d::placeholder {
+    color: darkgray;
+}

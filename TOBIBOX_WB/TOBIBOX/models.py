@@ -49,10 +49,10 @@ class DrawTemplates(models.Model):
         verbose_name='Мінімальна висота')
     max_depth = models.IntegerField(
         max_length=5,
-        verbose_name='Максимальна глубина')
+        verbose_name='Максимальна глибина')
     min_depth = models.IntegerField(
         max_length=5,
-        verbose_name='Мінімальна глубина')
+        verbose_name='Мінімальна глибина')
     templates_upload = models.FileField(
         null=False,
         upload_to='drawing_templates/',
@@ -61,6 +61,14 @@ class DrawTemplates(models.Model):
         default='static/TOBIBOX/svg/favicon.svg',
         upload_to='drawing_templates/',
         verbose_name='Прев\'ю')
+    max_material = models.IntegerField(
+        default=500,
+        max_length=5,
+        verbose_name='Максимальна товщина матерiалу')
+    min_material = models.IntegerField(
+        default=360,
+        max_length=5,
+        verbose_name='Мінімальна товщина матерiалу')
 
     file_name = models.CharField(
         max_length=30,

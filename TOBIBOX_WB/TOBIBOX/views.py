@@ -48,7 +48,8 @@ def draw(request, id=None):
         width = int(request.POST.get('width'))
         height = int(request.POST.get('height'))
         depth = int(request.POST.get('depth'))
-        new_draw = create_draw.create_svg_document(width, height, depth, name_templates_draw)
+        material = int(request.POST.get('material'))
+        new_draw = create_draw.create_svg_document(width, height, depth, material, name_templates_draw)
         response = FileResponse(open(new_draw, 'rb'), filename=name_templates_draw)
         response['Content-Disposition'] = 'attachment; filename="{}"'.format(f'{name_templates_draw}_{width}x{height}x{depth}mm.svg')
         return response

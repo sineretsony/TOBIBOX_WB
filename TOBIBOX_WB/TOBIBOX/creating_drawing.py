@@ -1,4 +1,4 @@
-def create_svg_document(w, h, d, sample):
+def create_svg_document(w, h, d, m, sample):
     import svgwrite
     import importlib.util
     import random
@@ -16,8 +16,8 @@ def create_svg_document(w, h, d, sample):
     un_milli = 2.834646
     safe_field = 2
 
-    '''Width, height, depth, unit of measurement, safety margins'''
-    doc_write = module.sample(w, h, d, un_milli, safe_field)
+    '''Width, height, depth, unit of measurement, safety margins and material (m)'''
+    doc_write = module.sample(w, h, d, un_milli, safe_field, m)
 
     document = svgwrite.Drawing(f'{doc_write["document_info"]["name"]}.svg', profile='tiny', size=(f"{doc_write['document_size']['width']}mm", f"{doc_write['document_size']['height']}mm"))
 
