@@ -1,5 +1,8 @@
+import os
+
 from django.contrib.auth.models import User
 from django.db import models
+
 
 
 # Create your models here.
@@ -26,6 +29,8 @@ class DrawTemplates(models.Model):
     draw_name = models.CharField(
         max_length=30,
         verbose_name='Назва креслення')
+    draw_content = models.TextField(
+        verbose_name='Опис креслення')
     category = models.ForeignKey(
         BoxCategory,
         on_delete=models.CASCADE,
@@ -49,12 +54,27 @@ class DrawTemplates(models.Model):
         max_length=5,
         verbose_name='Мінімальна глубина')
     templates_upload = models.FileField(
+        null=False,
         upload_to='drawing_templates/',
         verbose_name='Завантаження креслення')
     templates_prev = models.ImageField(
-        blank=True,
+        default='static/TOBIBOX/svg/favicon.svg',
         upload_to='drawing_templates/',
         verbose_name='Прев\'ю')
+
+    file_name = models.CharField(
+        max_length=30,
+        verbose_name='Назва файлу',
+        null=True,
+        default='',
+        help_text='Назва файлу без розширення')
+
+    def save(self, *args, **kwargs):
+        if self.templates_upload:
+            filename_and_path = os.path.basename(self.templates_upload.name)
+            name_file_no_py, _ = os.path.splitext(filename_and_path)
+            self.file_name = name_file_no_py
+        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Шаблон креслення'

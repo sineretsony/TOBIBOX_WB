@@ -63,6 +63,7 @@ header {
     justify-content: flex-start;
     align-items: center;
 
+
 }
 
 footer {
@@ -146,7 +147,7 @@ footer.show {
 }
 
 #logo_footer {
-    width: 90px;
+    width: 83px;
     align-items: center;
     padding: 0 0 15px 0;
 }
@@ -165,8 +166,8 @@ footer.show {
 }
 
 .black-button:hover {
-    background-color: #d3d3d3; 
-    border-color: #d3d3d3; 
+    background-color: #d3d3d3;
+    border-color: #d3d3d3;
     color: #0c0c0c;
 }
 
@@ -272,25 +273,140 @@ nav a {
     border-radius: 0;
     font-size: 15px;
     font-family: Candara, sans-serif;
-    color: darkgray;
+    color: black;
     width: 300px;
     padding: 7px;
-   
 }
+
+.form-control_g::placeholder {
+    color: darkgray;
+}
+
 
 /*errors message*/
 
 .error-message {
-        background-color: #0c0c0c;
-        color: #fff;
-        font-size: 12px;
-        border-radius: 0;
-        padding: 12px;
-        margin: 15px auto;
-        width: 50%;  
-        text-align: center;
+    background-color: #0c0c0c;
+    color: #fff;
+    font-size: 12px;
+    border-radius: 0;
+    padding: 12px;
+    margin: 15px auto;
+    width: 50%;
+    text-align: center;
+}
+
+.error-message strong {
+    font-weight: bold;
+}
+
+
+/* constructor */
+.container_constructor {
+    max-width: 70%;
+    width: 100%;
+    margin: 0 auto;
+    padding: 100px 0 150px 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+
+
+.custom-card-style {
+    max-width: 200px;
+    min-width: 100p%;
+    border: 1px solid white;
+    border-radius: 0;
+    font-family: Candara, sans-serif;
+    padding: 0px;
+
+}
+
+
+.card-img-top {
+    border-radius: 0;
+}
+
+/* draw form*/
+
+#form_draw {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    font-family: Candara, sans-serif;
+    font-size: 20px;
+    color: black;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 15% 0;
+}
+
+@media (max-width: 700px) {
+
+
+    #form_draw {
+        flex-direction: column;
+        text-align: left;
     }
 
-    .error-message strong {
-        font-weight: bold;
+    #form_draw > div {
+        margin-right: 0;
+        flex: 1;
+
     }
+
+    .draw_prev {
+        margin: 0 auto 10px;
+        padding: 0 0 0 20px;
+        display: block;
+    }
+    
+    .draw_info {
+        width: 70%;
+    }
+    
+}
+
+#form_draw > div {
+    margin-right: 20px;
+    flex: 3;
+}
+
+.draw_prev {
+    max-width: 300px;
+    height: auto;
+}
+
+#form_draw > div:last-child {
+    margin-right: 0;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+ #form_container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        font-family: Candara, sans-serif;
+        font-size: 20px;
+        color: black;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 150px 0;
+    }
+
+

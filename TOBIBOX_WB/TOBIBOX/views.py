@@ -1,11 +1,11 @@
 from django.contrib.auth import logout, login
 from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse, FileResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from . import creating_drawing as create_draw
 from .forms import RegistrationForm
-from .models import ContactsInfo, AboutInfo, IndexPost, UserProfile, CarouselImg
+from .models import ContactsInfo, AboutInfo, IndexPost, UserProfile, CarouselImg, DrawTemplates
 
 
 
@@ -26,7 +26,6 @@ def contacts(request):
 def about(request):
     info = AboutInfo.objects.all()
     context = {'info': info}
-    create_draw.create_svg_document(100, 25, 10, 'postcard')
     return render(request, 'TOBIBOX/about.html', context=context)
 
 
@@ -37,7 +36,24 @@ def post(request, id=None):
 
 
 def constructor(request):
-    return render(request, 'TOBIBOX/index.html')
+    templates_drawing = DrawTemplates.objects.all()
+    context = {'info': templates_drawing}
+    return render(request, 'TOBIBOX/constructor.html', context=context)
+
+
+def draw(request, id=None):
+    info = get_object_or_404(DrawTemplates, draw_name=id)
+    if request.method == 'POST':
+        name_templates_draw = str(request.POST.get('name_templates_draw'))
+        width = int(request.POST.get('width'))
+        height = int(request.POST.get('height'))
+        depth = int(request.POST.get('depth'))
+        new_draw = create_draw.create_svg_document(width, height, depth, name_templates_draw)
+        response = FileResponse(open(new_draw, 'rb'), filename=name_templates_draw)
+        response['Content-Disposition'] = 'attachment; filename="{}"'.format(f'{name_templates_draw}_{width}x{height}x{depth}mm.svg')
+        return response
+    context = {'info': info}
+    return render(request, 'TOBIBOX/draw.html', context=context)
 
 
 def profile(request):

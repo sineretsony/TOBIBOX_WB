@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-from .models import UserProfile
+from .models import UserProfile, DrawTemplates
 
 
 class RegistrationForm(UserCreationForm):
@@ -45,5 +45,4 @@ class LoginForm(AuthenticationForm):
             raise forms.ValidationError(self.error_messages['invalid_login'])
 
         return cleaned_data
-
 
