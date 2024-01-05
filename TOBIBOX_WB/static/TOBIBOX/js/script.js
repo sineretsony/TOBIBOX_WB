@@ -76,7 +76,7 @@ function submitFormWithDelay() {
     if (cleancer) {
         setTimeout(function () {
             clearFields();
-            cleancer = false;
+            cleancer = true;
         }, 2000);
     }
 }
