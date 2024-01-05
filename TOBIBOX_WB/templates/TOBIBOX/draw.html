@@ -1,0 +1,43 @@
+{% extends 'TOBIBOX/base.html' %}
+{% load static %}
+{% block title %}{{ info.draw_name }}{% endblock %}
+
+{% block content %}
+<div id="container_constructor">
+    <div id="form_container">
+        <div class="draw_info">
+            <h3 class="card-title">{{ info.draw_name }}</h3>
+            <p class="card-text">{{ info.draw_content|linebreaks|safe }}</p>
+        </div>
+
+        <form id="form_draw" method="POST" action="{% url 'draw' id=info.draw_name %}" onsubmit="return validateForm()">
+            {% csrf_token %}
+            <input type="hidden" name="name_templates_draw" value="{{ info.file_name }}">
+            <div>
+                <img src="{{ info.templates_prev.url }}" alt="{{ info.draw_name }}" class="draw_prev">
+            </div>
+            <div>
+                <div class="mb-3">
+                    <label>Ширина</label>
+                    <input type="number" name="width" class="form-control_d" placeholder="{{ info.min_width }} mm" min="{{ info.min_width }}" max="{{ info.max_width }}">
+                </div>
+                <div class="mb-3">
+                    <label>Висота</label>
+                    <input type="number" name="height" class="form-control_d" placeholder="{{ info.min_height }} mm" min="{{ info.min_height }}" max="{{ info.max_height }}">
+                </div>
+                <div class="mb-3">
+                    <label>Глибина</label>
+                    <input type="number" name="depth" class="form-control_d" placeholder="{{ info.min_depth }} mm" min="{{ info.min_depth }}" max="{{ info.max_depth }}">
+                </div>
+                <div class="mb-3">
+                    <label>Товщина матеріалу</label>
+                    <input type="number" name="material" class="form-control_d" placeholder="{{ info.min_material }} µm" min="{{ info.min_material }}" max="{{ info.max_material }}">
+                </div>
+                <div>
+                    <button type="button" class="btn btn-primary black-button" onclick="clearFields()">Очистити</button>
+                    <button type="submit" class="btn btn-primary black-button" onclick="submitFormWithDelay()">Завантажити</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    {% endblock %}
