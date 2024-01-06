@@ -12,7 +12,11 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ t.draw_name }}</h5>
                     <p class="card-text">{{ t.draw_content|truncatewords:5 }}</p>
-                    <a href="{% url 'draw' id=t.draw_name %}" class="btn btn-primary black-button">Створити</a> 
+                    {% if user.is_authenticated %}
+                            <a href="{% url 'draw' id=t.draw_name %}" class="btn btn-primary black-button">Створити</a>
+                        {% else %}
+                            <a href="{% url 'login' %}" class="btn btn-primary black-button">Створити</a>
+                        {% endif %} 
                 </div>
             </div>
         </div>
@@ -20,3 +24,5 @@
     </div>
 </div>
 {% endblock %}
+
+

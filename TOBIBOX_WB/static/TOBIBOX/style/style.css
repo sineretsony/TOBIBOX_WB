@@ -203,6 +203,10 @@ nav a {
 }
 
 
+h6 {
+    color: darkgray;
+}
+
 
 #about_info {
     text-align: justify;

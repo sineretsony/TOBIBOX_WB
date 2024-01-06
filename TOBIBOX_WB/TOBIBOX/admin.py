@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import ContactsInfo, AboutInfo, IndexPost, CarouselImg, \
-    DrawTemplates, BoxCategory
+    DrawTemplates, BoxCategory, SocialMedia
 
 
 # Register your models here.
@@ -31,7 +31,7 @@ class CarouselImgAdmin(admin.ModelAdmin):
 @admin.register(DrawTemplates)
 class DrawTemplatesAdmin(admin.ModelAdmin):
     list_display = ('draw_name', 'category', 'max_width', 'min_width',
-                    'max_height', 'min_height', 'max_depth', 'min_depth',
+                    'max_height', 'min_height', 'max_depth', 'min_depth', 'max_material', 'min_material',
                     'templates_upload')
     search_fields = ('draw_name', 'category__name')
     exclude = ('file_name',)
@@ -41,3 +41,6 @@ class DrawTemplatesAdmin(admin.ModelAdmin):
 class BoxCategoryAdmin(admin.ModelAdmin):
     list_display = ('name_box_category',)
 
+@admin.register(SocialMedia)
+class SocialMediaOtherSettingsAdmin(admin.ModelAdmin):
+    list_display = ('telegram_link', 'instagram_link', 'facebook_link', 'email_txt')

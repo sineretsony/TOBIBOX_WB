@@ -28,22 +28,9 @@ def create_svg_document(w, h, d, m, sample):
 
 
 if __name__ == "__main__":
-    create_svg_document(100, 100, 5, 'postcard')
+    create_svg_document(100, 100, 5, 0, 'postcard')
 
 
-
-# def delete_old_files(path_to_directory):
-#     import os
-#     from datetime import datetime, timedelta
-#     files = os.listdir(path_to_directory)
-#     for file in files:
-#         if os.path.getmtime(f'{path_to_directory}/{file}') < (datetime.now() - timedelta(hours=1)):
-#             os.remove(f'{path_to_directory}/{file}')
-#
-#
-# if __name__ == '__main__':
-#     path_to_directory = '/path/to/directory'
-#     delete_old_files(path_to_directory)
 
 
 

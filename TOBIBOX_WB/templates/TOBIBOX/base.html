@@ -24,6 +24,10 @@
             <a href="{% url 'index' %}">
                 <img id="logo" alt="TOBIBOX" src="{% static 'TOBIBOX/svg/TOBIBOX_logo_NY.svg' %}">
             </a>
+            {% elif current_date >= "2024-08-24" and current_date <= "2024-08-24" %}
+            <a href="{% url 'index' %}">
+                <img id="logo" alt="TOBIBOX" src="{% static 'TOBIBOX/svg/TOBIBOX_logo_UA.svg' %}">
+            </a>
             {% else %}
             <a href="{% url 'index' %}">
                 <img id="logo" alt="TOBIBOX" src="{% static 'TOBIBOX/svg/TOBIBOX_logo.svg' %}">
@@ -61,18 +65,31 @@
                 <a href="{% url 'index' %}">
                     <img id="logo_footer" alt="TOBIBOX" src="{% static 'TOBIBOX/svg/TOBIBOX_logo_NY.svg' %}">
                 </a>
+                {% elif current_date >= "2024-08-24" and current_date <= "2024-08-24" %}
+                <a href="{% url 'index' %}">
+                    <img id="logo_footer" alt="TOBIBOX" src="{% static 'TOBIBOX/svg/TOBIBOX_logo_UA.svg' %}">
+                </a>
                 {% else %}
                 <a href="{% url 'index' %}">
                     <img id="logo_footer" alt="TOBIBOX" src="{% static 'TOBIBOX/svg/TOBIBOX_logo.svg' %}">
                 </a>
                 {% endif %}
+
                 <p>&copy; TOBIBOX 2023</p>
             </div>
             <div class="container_footer_soc">
-                <p>tobibox@gmail.com</p>
-                <a href="base.html"><img class="soc_seti" alt="TOBIBOX_logo" src="{% static 'TOBIBOX/svg/TOBIBOX_telegram.svg' %}"></a>
-                <a href="base.html"><img class="soc_seti" alt="TOBIBOX_logo" src="{% static 'TOBIBOX/svg/TOBIBOX_instagram.svg' %}"></a>
-                <a href="base.html"><img class="soc_seti" alt="TOBIBOX_logo" src="{% static 'TOBIBOX/svg/TOBIBOX_facebook.svg' %}"></a>
+                <p>{{ links.first.email_txt }}</p>
+                {% if links.first.telegram_link %}
+                <a href="{{ links.first.telegram_link }}"><img class="soc_seti" alt="TOBIBOX_logo" src="{% static 'TOBIBOX/svg/TOBIBOX_telegram.svg' %}"></a>
+                {% endif %}
+
+                {% if links.first.instagram_link %}
+                <a href="{{ links.first.instagram_link }}"><img class="soc_seti" alt="TOBIBOX_logo" src="{% static 'TOBIBOX/svg/TOBIBOX_instagram.svg' %}"></a>
+                {% endif %}
+
+                {% if links.first.facebook_link %}
+                <a href="{{ links.first.facebook_link }}"><img class="soc_seti" alt="TOBIBOX_logo" src="{% static 'TOBIBOX/svg/TOBIBOX_facebook.svg' %}"></a>
+                {% endif %}
             </div>
         </div>
     </footer>

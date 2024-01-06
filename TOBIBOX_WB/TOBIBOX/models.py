@@ -37,38 +37,40 @@ class DrawTemplates(models.Model):
         verbose_name='Категорія')
     max_width = models.IntegerField(
         max_length=5,
-        verbose_name='Максимальна ширина')
+        verbose_name='Макс. ширина')
     min_width = models.IntegerField(
         max_length=5,
-        verbose_name='Мінімальна ширина')
+        verbose_name='Мін. ширина')
     max_height = models.IntegerField(
         max_length=5,
-        verbose_name='Максимальна висота')
+        verbose_name='Макс. висота')
     min_height = models.IntegerField(
         max_length=5,
-        verbose_name='Мінімальна висота')
+        verbose_name='Мін. висота')
     max_depth = models.IntegerField(
         max_length=5,
-        verbose_name='Максимальна глибина')
+        verbose_name='Макс. глибина')
     min_depth = models.IntegerField(
         max_length=5,
-        verbose_name='Мінімальна глибина')
+        verbose_name='Мін. глибина')
     templates_upload = models.FileField(
         null=False,
         upload_to='drawing_templates/',
-        verbose_name='Завантаження креслення')
+        verbose_name='Креслення')
     templates_prev = models.ImageField(
         default='static/TOBIBOX/svg/favicon.svg',
         upload_to='drawing_templates/',
         verbose_name='Прев\'ю')
     max_material = models.IntegerField(
+        null=True,
         default=500,
         max_length=5,
-        verbose_name='Максимальна товщина матерiалу')
+        verbose_name='Макс. тов. матерiалу')
     min_material = models.IntegerField(
+        null=True,
         default=360,
         max_length=5,
-        verbose_name='Мінімальна товщина матерiалу')
+        verbose_name='Мін. тов. матерiалу')
 
     file_name = models.CharField(
         max_length=30,
@@ -83,6 +85,9 @@ class DrawTemplates(models.Model):
             name_file_no_py, _ = os.path.splitext(filename_and_path)
             self.file_name = name_file_no_py
         super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.draw_name
 
     class Meta:
         verbose_name = 'Шаблон креслення'
@@ -186,3 +191,34 @@ class CarouselImg(models.Model):
 
     def __str__(self):
         return self.carousel_title
+
+
+class SocialMedia(models.Model):
+    telegram_link = models.URLField(
+        max_length=200,
+        blank=True,
+        null=True,
+        verbose_name='Посилання телеграм')
+    instagram_link = models.URLField(
+        max_length=200,
+        blank=True,
+        null=True,
+        verbose_name='Посилання iнастаграм')
+    facebook_link = models.URLField(
+        max_length=200,
+        blank=True,
+        null=True,
+        verbose_name='Посилання фейсбук')
+    email_txt = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True,
+        verbose_name='Пошта')
+
+    class Meta:
+        verbose_name = 'Соц налаштування'
+        verbose_name_plural = 'Соц налаштування'
+
+    def __str__(self):
+        return 'Насройки блоку соціальних мереж'
+

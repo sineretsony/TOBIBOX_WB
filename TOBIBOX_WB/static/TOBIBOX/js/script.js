@@ -51,7 +51,7 @@ function clearFields() {
     document.getElementsByName("width")[0].value = "";
     document.getElementsByName("height")[0].value = "";
     document.getElementsByName("depth")[0].value = "";
-    document.getElementsByName("material")[0].value = "";
+    document.getElementsByName("material")[0].value = 0;
 }
 
 function validateForm() {

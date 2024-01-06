@@ -31,7 +31,12 @@
                 </div>
                 <div class="mb-3">
                     <label>Товщина матеріалу</label>
-                    <input type="number" name="material" class="form-control_d" placeholder="{{ info.min_material }} µm" min="{{ info.min_material }}" max="{{ info.max_material }}">
+                    {% if info.min_material == 0 or info.max_material == 0 %}
+                    <input type="hidden" name="material" value="0">
+                    <input type="text" name="no_material" class="form-control_d" placeholder="Недоступно" readonly>
+                    {% else %}
+                    <input type="number" name="material" class="form-control_d" placeholder="{{ info.min_material }} µm" min="{{ info.min_material }}" max="{{ info.max_material }}" value="{{ info.min_material }}">
+                    {% endif %}
                 </div>
                 <div>
                     <button type="button" class="btn btn-primary black-button" onclick="clearFields()">Очистити</button>
