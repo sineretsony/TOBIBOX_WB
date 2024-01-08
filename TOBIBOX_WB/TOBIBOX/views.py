@@ -6,49 +6,61 @@ from django.contrib import messages
 from . import creating_drawing as create_draw
 from .forms import RegistrationForm
 from .models import ContactsInfo, AboutInfo, IndexPost, UserProfile, \
-    CarouselImg, DrawTemplates, SocialMedia
+    CarouselImg, DrawTemplates, SocialMedia, BoxCategory
 
 
 # Create your views here.
-def ReturnSocialMedia():
+def returnSocialMedia():
     link = SocialMedia.objects.all()
     return {'links': link}
+
+
+def getCategory():
+    categories = BoxCategory.objects.all()
+    return {'categories': categories}
 
 
 def index(request):
     posts = IndexPost.objects.all().order_by('-published_date')
     carousel = CarouselImg.objects.first()
     context = {'posts': posts, 'carousel': carousel}
-    context.update(ReturnSocialMedia())
+    context.update(returnSocialMedia())
     return render(request, 'TOBIBOX/index.html', context=context)
 
 
 def contacts(request):
     info = ContactsInfo.objects.all()
     context = {'info': info}
-    context.update(ReturnSocialMedia())
+    context.update(returnSocialMedia())
     return render(request, 'TOBIBOX/contacts.html', context=context)
 
 
 def about(request):
     info = AboutInfo.objects.all()
     context = {'info': info}
-    context.update(ReturnSocialMedia())
+    context.update(returnSocialMedia())
     return render(request, 'TOBIBOX/about.html', context=context)
 
 
 def post(request, id=None):
     info = get_object_or_404(IndexPost, post_title=id)
     context = {'info': info}
-    context.update(ReturnSocialMedia())
+    context.update(returnSocialMedia())
     return render(request, 'TOBIBOX/post.html', context=context)
 
 
 def constructor(request):
     templates_drawing = DrawTemplates.objects.all()
+    selected_category = request.GET.get('category', None)
+
+    if selected_category:
+        templates_drawing = templates_drawing.filter(category__id=selected_category)
+
     context = {'info': templates_drawing}
-    context.update(ReturnSocialMedia())
+    context.update(returnSocialMedia())
+    context.update(getCategory())
     return render(request, 'TOBIBOX/constructor.html', context=context)
+
 
 
 def draw(request, id=None):
@@ -64,7 +76,7 @@ def draw(request, id=None):
         response['Content-Disposition'] = 'attachment; filename="{}"'.format(f'{name_templates_draw}_{width}x{height}x{depth}mm.svg')
         return response
     context = {'info': info}
-    context.update(ReturnSocialMedia())
+    context.update(returnSocialMedia())
     return render(request, 'TOBIBOX/draw.html', context=context)
 
 
@@ -72,7 +84,7 @@ def profile(request):
     try:
         user_profile = User.objects.get(username=request.user)
         context = {'user': user_profile}
-        context.update(ReturnSocialMedia())
+        context.update(returnSocialMedia())
         return render(request, 'TOBIBOX/profile.html', context=context)
     except:
         return HttpResponseRedirect('/login')
@@ -94,7 +106,10 @@ def register(request):
     else:
         form = RegistrationForm()
     context = {'user_form': form}
-    context.update(ReturnSocialMedia())
+    context.update(returnSocialMedia())
 
     return render(request, 'TOBIBOX/register.html', context=context)
 
+
+def invalid_path(request, invalid_path):
+    return render(request, 'TOBIBOX/invalid_path.html', {'invalid_path': invalid_path})

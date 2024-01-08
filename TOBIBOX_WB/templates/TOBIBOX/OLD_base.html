@@ -18,56 +18,39 @@
 </head>
 
 <body class="p-0 m-0 border-0 bd-example m-0 border-0">
-    <nav class="navbar navbar-expand-lg navbar-salad">
-        <div class="container main-content">
-          {% if current_date >= "2023-12-15" and current_date <= "2024-01-31" %}
+    <header>
+        <div class="container_header">
+            {% if current_date >= "2023-12-15" and current_date <= "2024-01-31" %}
             <a href="{% url 'index' %}">
-                <img id="logo" alt="TOBIBOX"   src="{% static 'TOBIBOX/svg/TOBIBOX_logo_NY.svg' %}">
+                <img id="logo" alt="TOBIBOX" src="{% static 'TOBIBOX/svg/TOBIBOX_logo_NY.svg' %}">
             </a>
             {% elif current_date >= "2024-08-24" and current_date <= "2024-08-24" %}
             <a href="{% url 'index' %}">
-                <img class="navbar-brand" alt="TOBIBOX" style="height: 18px;" src="{% static 'TOBIBOX/svg/TOBIBOX_logo_UA.svg' %}">
+                <img id="logo" alt="TOBIBOX" src="{% static 'TOBIBOX/svg/TOBIBOX_logo_UA.svg' %}">
             </a>
             {% else %}
             <a href="{% url 'index' %}">
-                <img class="navbar-brand" alt="TOBIBOX" style="height: 18px;" src="{% static 'TOBIBOX/svg/TOBIBOX_logo.svg' %}">
+                <img id="logo" alt="TOBIBOX" src="{% static 'TOBIBOX/svg/TOBIBOX_logo.svg' %}">
             </a>
             {% endif %}
-          <button class="navbar-toggler navbar-toggler-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-            <div class="nav_container">
-                <ul class="navbar-nav d-flex">
-                    <li class="nav-item">
-                      <a class="nav-link" aria-current="page" href="{% url 'index' %}">Головна</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="{% url 'constructor' %}">Конструктор</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about' %}">Про нас</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="{% url 'contacts' %}">Контакти</a>
-                      </li>
-                  </ul>
+            <nav class="main-nav">
+                <a href="{% url 'index' %}">Головна</a>
+                <a href="{% url 'constructor' %}">Конструктор</a>
+                <a href="{% url 'about' %}">Про нас</a>
+                <a href="{% url 'contacts' %}">Контакти</a>
+            </nav>
+            <div>
+                <a href="#"><img class="dop_menu" src="{% static 'TOBIBOX/svg/TOBIBOX_search.svg' %}"></a>
+                {% if user.is_authenticated %}
+                <a href="{% url 'profile' %}"><img class="dop_menu" src="{% static 'TOBIBOX/svg/TOBIBOX_profile.svg' %}"></a>
+                {% else %}
+                <a href="{% url 'login' %}"><img class="dop_menu" src="{% static 'TOBIBOX/svg/TOBIBOX_profile.svg' %}"></a>
+                {% endif %}
             </div>
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                  <div class="icon-container">
-                    <a href="#"><img class="dop_menu" src="{% static 'TOBIBOX/svg/TOBIBOX_search.svg' %}"></a>
-                    {% if user.is_authenticated %}
-                    <a href="{% url 'profile' %}"><img class="dop_menu" src="{% static 'TOBIBOX/svg/TOBIBOX_profile.svg' %}"></a>
-                    {% else %}
-                    <a href="{% url 'login' %}"><img class="dop_menu" src="{% static 'TOBIBOX/svg/TOBIBOX_profile.svg' %}"></a>
-                    {% endif %}
-                  </div>
-                </li>
-              </ul>
-          </div>
+            
+
         </div>
-      </nav>
+    </header>
 
     {% block content %}
     {% endblock %}

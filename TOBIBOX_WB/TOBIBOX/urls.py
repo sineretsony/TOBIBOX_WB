@@ -1,8 +1,10 @@
 from django.urls import path
 from . import views
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView
+from django.contrib import admin
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('contacts', views.contacts, name='contacts'),
     path('about', views.about, name='about'),
@@ -13,5 +15,6 @@ urlpatterns = [
     path('register', views.register, name='register'),
     path('login', LoginView.as_view(), name='login'),
     path('logout', views.user_logout, name='logout'),
+    path('<path:invalid_path>/', views.invalid_path, name='invalid_path'),
 
 ]
