@@ -1,3 +1,4 @@
+# тест
 def create_svg_document(w, h, d, m, sample):
     import svgwrite
     import importlib.util
@@ -5,6 +6,7 @@ def create_svg_document(w, h, d, m, sample):
     import string
     import os
     import datetime
+    from TOBIBOX_WB.settings import BASE_DIR
 
     def delete_old_files(directory_path, hours_threshold):
         current_time = datetime.datetime.now()
@@ -18,9 +20,10 @@ def create_svg_document(w, h, d, m, sample):
                     print(f"Deleting old file: {file_path}")
                     os.remove(file_path)
 
-    temp_draw_path = 'TOBIBOX/temp_drawing/'
+    temp_draw_path = os.path.join(BASE_DIR, 'TOBIBOX/temp_drawing/')
     module_name = sample
-    module_path = f'media_files/drawing_templates/{module_name}.py'
+    # module_path = f'media_files/drawing_templates/{module_name}.py'
+    module_path = os.path.join(BASE_DIR, f'media_files/drawing_templates/{module_name}.py')
     spec = importlib.util.spec_from_file_location(module_name, module_path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)

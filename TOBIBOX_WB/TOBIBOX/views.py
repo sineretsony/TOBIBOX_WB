@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect, HttpResponse, FileResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
-from . import creating_drawing as create_draw
+# from . import creating_drawing as create_draw
+import creating_drawing as create_draw
 from .forms import RegistrationForm
 from .models import ContactsInfo, AboutInfo, IndexPost, UserProfile, \
     CarouselImg, DrawTemplates, SocialMedia, BoxCategory
