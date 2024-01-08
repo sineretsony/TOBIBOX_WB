@@ -112,5 +112,10 @@ def register(request):
     return render(request, 'TOBIBOX/register.html', context=context)
 
 
+# def invalid_path(request, invalid_path):
+#     return render(request, 'TOBIBOX/invalid_path.html', {'invalid_path': invalid_path})
+
 def invalid_path(request, invalid_path):
-    return render(request, 'TOBIBOX/invalid_path.html', {'invalid_path': invalid_path})
+    context = {'invalid_path': invalid_path}
+    context.update(returnSocialMedia())
+    return render(request, 'TOBIBOX/invalid_path.html', context=context)
