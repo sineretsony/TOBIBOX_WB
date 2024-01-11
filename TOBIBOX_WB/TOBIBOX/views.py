@@ -1,5 +1,6 @@
 from django.contrib.auth import logout, login
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.http import HttpResponseRedirect, HttpResponse, FileResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
@@ -8,6 +9,7 @@ import creating_drawing as create_draw
 from .forms import RegistrationForm
 from .models import ContactsInfo, AboutInfo, IndexPost, UserProfile, \
     CarouselImg, DrawTemplates, SocialMedia, BoxCategory
+from django.db.models.functions import Lower
 
 
 # Create your views here.
@@ -49,19 +51,24 @@ def post(request, id=None):
     context.update(returnSocialMedia())
     return render(request, 'TOBIBOX/post.html', context=context)
 
-
 def constructor(request):
     templates_drawing = DrawTemplates.objects.all()
     selected_category = request.GET.get('category', None)
+    search_query = request.GET.get('search', None)
 
     if selected_category:
         templates_drawing = templates_drawing.filter(category__id=selected_category)
+
+    if search_query:
+        search_query = search_query.strip().capitalize()
+        templates_drawing = templates_drawing.filter(
+            Q(draw_name__icontains=search_query) |
+            Q(draw_name__icontains=search_query.lower()))
 
     context = {'info': templates_drawing}
     context.update(returnSocialMedia())
     context.update(getCategory())
     return render(request, 'TOBIBOX/constructor.html', context=context)
-
 
 
 def draw(request, id=None):
