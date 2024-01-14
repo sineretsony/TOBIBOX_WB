@@ -1,4 +1,5 @@
 from django.contrib.auth import logout, login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.http import HttpResponseRedirect, HttpResponse, FileResponse
@@ -10,6 +11,8 @@ from .forms import RegistrationForm
 from .models import ContactsInfo, AboutInfo, IndexPost, UserProfile, \
     CarouselImg, DrawTemplates, SocialMedia, BoxCategory
 from django.db.models.functions import Lower
+from django.contrib.auth.views import LoginView
+from django.urls import reverse_lazy
 
 
 # Create your views here.
@@ -88,19 +91,33 @@ def draw(request, id=None):
     return render(request, 'TOBIBOX/draw.html', context=context)
 
 
+@login_required
 def profile(request):
     try:
         user_profile = User.objects.get(username=request.user)
+        if request.method == 'POST':
+            # Если запрос был методом POST, значит форма была отправлена
+            # и вы можете обновить данные пользователя
+            user_profile.last_name = request.POST.get('last_name')
+            user_profile.first_name = request.POST.get('first_name')
+            user_profile.save()
+
         context = {'user': user_profile}
         context.update(returnSocialMedia())
         return render(request, 'TOBIBOX/profile.html', context=context)
-    except:
+    except User.DoesNotExist:
         return HttpResponseRedirect('/login')
 
 
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect('/login')
+
+
+
+class CustomLoginView(LoginView):
+    template_name = 'registration/login.html'
+    success_url = reverse_lazy('profile')
 
 
 def register(request):

@@ -3,29 +3,26 @@
 {% block title %}Увійти{% endblock %}
 {% block content %}
 <div id="container_login">
-  {% if user_form.errors %}
+  {% if form.errors %}
     <div class="error-message" role="alert">
-        {% for field, errors in user_form.errors.items %}
-            <strong>{{ field|title }}:</strong>
-            {% for error in errors %}
-                {{ error }}
-            {% endfor %}
+        {% for error in form.non_field_errors %}
+            {{ error }}
             <br>
         {% endfor %}
     </div>
-{% endif %}
-   <form id="form_login" method="post" action="{% url 'login' %}">
-     {% csrf_token %}
-      <div class="mb-3">
-        <input type="text" name="username" class="form-control_g" id="exampleInputUsername" placeholder="Username">
-      </div>
-      <div class="mb-3">
-        <input type="password" name="password" class="form-control_g" id="exampleInputPassword" placeholder="Password">
-      </div>
-      <div>
-          <a href="{% url 'register' %}" class="btn btn-primary black-button">Зареєструватись</a>
-          <button type="submit" class="btn btn-primary black-button_act">Увійти</button>
-      </div>
-    </form>
+  {% endif %}
+  <form id="form_login" method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <div class="mb-3">
+      <input type="text" name="{{ form.username.name }}" class="form-control_g" id="{{ form.username.id_for_label }}" placeholder="{{ form.username.label }}">
+    </div>
+    <div class="mb-3">
+      <input type="password" name="{{ form.password.name }}" class="form-control_g" id="{{ form.password.id_for_label }}" placeholder="{{ form.password.label }}">
+    </div>
+    <div>
+      <a href="{% url 'register' %}" class="btn btn-primary black-button">Зареєструватись</a>
+      <button type="submit" class="btn btn-primary black-button_act">Увійти</button>
+    </div>
+  </form>
 </div>
 {% endblock %}
