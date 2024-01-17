@@ -41,6 +41,7 @@ class DrawTemplatesAdmin(admin.ModelAdmin):
 class BoxCategoryAdmin(admin.ModelAdmin):
     list_display = ('name_box_category',)
 
+
 @admin.register(SocialMedia)
 class SocialMediaOtherSettingsAdmin(admin.ModelAdmin):
     list_display = ('telegram_link', 'instagram_link', 'facebook_link', 'email_txt')
