@@ -96,8 +96,6 @@ def profile(request):
     try:
         user_profile = User.objects.get(username=request.user)
         if request.method == 'POST':
-            # Если запрос был методом POST, значит форма была отправлена
-            # и вы можете обновить данные пользователя
             user_profile.last_name = request.POST.get('last_name')
             user_profile.first_name = request.POST.get('first_name')
             user_profile.save()
